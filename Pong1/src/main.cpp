@@ -1,9 +1,8 @@
 #include <iostream>
-#include "game.h"
-
+#include "../include/game.h"
 int main(int argc, char * argv[]) {
 	Game * game = new Game();
-	game->run();
+	game->gameLoop();
 	delete game;
 	return 0;
 }
