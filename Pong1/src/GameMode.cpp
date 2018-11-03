@@ -1,4 +1,4 @@
-#include "..\include\GameMode.h"
+#include "../include/GameMode.h"
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */

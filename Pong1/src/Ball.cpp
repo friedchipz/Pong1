@@ -1,4 +1,4 @@
-#include "..\include\Ball.h"
+#include "../include/Ball.h"
 #include "../include/Player.h"
 #include <stdlib.h>     /* srand, rand */
 

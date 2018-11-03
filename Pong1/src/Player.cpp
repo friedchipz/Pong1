@@ -1,4 +1,4 @@
-#include "..\include\Player.h"
+#include "../include/Player.h"
 
 void Player::update(){
 	//update player positions
