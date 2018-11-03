@@ -23,7 +23,8 @@ void Ball::update(){
 
 void Ball::render(SDL_Renderer * renderer){
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(renderer, &this->getRect());
+    SDL_Rect rect = getRect();
+	SDL_RenderFillRect(renderer, &rect);
 }
 
 void Ball::resetSpeed(){

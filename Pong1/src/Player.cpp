@@ -13,7 +13,8 @@ void Player::update(){
 
 void Player::render(SDL_Renderer * renderer){
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(renderer, &getRect());
+    SDL_Rect rect = getRect();
+	SDL_RenderFillRect(renderer, &rect);
 }
 
 void Player::handleEvent(const SDL_Event & event){

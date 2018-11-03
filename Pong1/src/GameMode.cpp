@@ -39,7 +39,7 @@ void GameMode::unregisterEntity(Entity * entityPtr){
 void GameMode::init() {
 	finished = false;
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		throw std::exception("could not initialize SDL subsystems");
+		throw "could not initialize SDL subsystems";
 	}
 	window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, 0);
