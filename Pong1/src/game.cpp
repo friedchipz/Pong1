@@ -8,15 +8,10 @@
 #include "../include/game.h"
 #include "SDL.h"
 
-Game::Game(){
-	window = nullptr;
-	renderer = nullptr;
+Game::Game() {
 	ball = nullptr;
 	p1 = nullptr;
 	p2 = nullptr;
-}
-
-Game::~Game() {
 }
 
 void Game::init() {
@@ -33,14 +28,12 @@ void Game::init() {
 
 void Game::update() {
 	GameMode::update();
-
 	//Goal conditions:
-	if (ball->getX() <= 0) {
+	if (ball->posX <= 0) {
 		p2Score++;
 		resetBall();
 		showScore();
-	}
-	else if (ball->getX() + ball->getWidth() >= 640) {
+	} else if (ball->posX + ball->width >= 640) {
 		p1Score++;
 		resetBall();
 		showScore();

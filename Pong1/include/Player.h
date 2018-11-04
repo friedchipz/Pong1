@@ -14,6 +14,6 @@ public:
 	Player(float x, float y, const SDL_Keycode up, const SDL_Keycode down);
 	void setInputEventUp(const SDL_Keycode up);
 	void setInputEventDown(const SDL_Keycode down);
-	virtual ~Player();
+	virtual ~Player() = default;
 };
 

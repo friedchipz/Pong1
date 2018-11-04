@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h"
-class Ball : public Entity
-{
+class Ball : public Entity {
 protected:
 	float speed, angle;
 	virtual void update();
@@ -10,6 +9,5 @@ protected:
 public:
 	Ball(float x, float y);
 	virtual void eventCollission(Entity * entityPtr);
-	virtual ~Ball();
+	virtual ~Ball() = default;
 };
-

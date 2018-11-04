@@ -9,26 +9,20 @@
 #include <SDL.h>
 #include <vector>
 
-GameMode::GameMode()
-{
+GameMode::GameMode() {
 	window = nullptr;
 	renderer = nullptr;
-}
-
-
-GameMode::~GameMode()
-{
 }
 
 const bool GameMode::isFinished() const {
 	return finished;
 }
 
-void GameMode::registerEntity(Entity * newEntityPtr){
+void GameMode::registerEntity(Entity * newEntityPtr) {
 	if (newEntityPtr != nullptr) entities.insert(newEntityPtr);
 }
 
-void GameMode::unregisterEntity(Entity * entityPtr){
+void GameMode::unregisterEntity(Entity * entityPtr) {
 	std::set<Entity *>::iterator iter=entities.find(entityPtr);
 	if (iter!=entities.end()) {
 		entities.erase(iter);
@@ -87,7 +81,7 @@ void GameMode::clean() {
 	SDL_Quit();
 }
 
-void GameMode::unregisterAllEntities(){
+void GameMode::unregisterAllEntities() {
 	for (Entity* entityPtr : entities) {
 		delete entityPtr;
 	}

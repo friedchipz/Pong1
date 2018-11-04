@@ -1,6 +1,6 @@
 #include "../include/Player.h"
 
-void Player::update(){
+void Player::update() {
 	//update player positions
 	posY += speedFactor * maxSpeed;
 	if (posY + height > 480) {		//reached bottom
@@ -11,13 +11,13 @@ void Player::update(){
 	}
 }
 
-void Player::render(SDL_Renderer * renderer){
+void Player::render(SDL_Renderer * renderer) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_Rect rect = getRect();
 	SDL_RenderFillRect(renderer, &rect);
 }
 
-void Player::handleEvent(const SDL_Event & event){
+void Player::handleEvent(const SDL_Event & event) {
 	SDL_Keycode key;
 	switch (event.type) {
 	case SDL_KEYDOWN:
@@ -33,11 +33,11 @@ void Player::handleEvent(const SDL_Event & event){
 	}
 }
 
-void Player::setInputEventUp(const SDL_Keycode up){
+void Player::setInputEventUp(const SDL_Keycode up) {
 	this->up = up;
 }
 
-void Player::setInputEventDown(const SDL_Keycode down){
+void Player::setInputEventDown(const SDL_Keycode down) {
 	this->down = down;
 }
 
@@ -48,8 +48,4 @@ Player::Player(float x, float y, SDL_Keycode up, SDL_Keycode down):up(up), down(
 	speedFactor = 0;
 	height = 50;
 	width = 10;
-}
-
-
-Player::~Player(){
 }

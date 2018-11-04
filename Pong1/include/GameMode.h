@@ -2,8 +2,7 @@
 #include <SDL.h>
 #include <set>
 #include "Entity.h"
-class GameMode
-{
+class GameMode {
 protected:
 	//data for rendering
 	SDL_Window * window;
@@ -27,7 +26,7 @@ protected:
 
 public:
 	GameMode();
-	~GameMode();
+	~GameMode() = default;
 	void gameLoop();
 	const bool isFinished() const;
 	void registerEntity(Entity * newEntity);

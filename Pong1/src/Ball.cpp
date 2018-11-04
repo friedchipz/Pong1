@@ -2,8 +2,7 @@
 #include "../include/Player.h"
 #include <stdlib.h>     /* srand, rand */
 
-
-void Ball::update(){
+void Ball::update() {
 	//update ball position
 	posX += speed * cos(angle*M_PI / 180);
 	posY += speed * sin(angle*M_PI / 180);
@@ -21,20 +20,20 @@ void Ball::update(){
 	if (angle < 0) angle += 360;
 }
 
-void Ball::render(SDL_Renderer * renderer){
+void Ball::render(SDL_Renderer * renderer) {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_Rect rect = getRect();
 	SDL_RenderFillRect(renderer, &rect);
 }
 
-void Ball::resetSpeed(){
+void Ball::resetSpeed() {
 	posX = 320;
 	posY = 240;
 	speed = 200 / 60;
 	angle = ((rand() % 4) * 90. + 45.);
 }
 
-Ball::Ball(float x, float y){
+Ball::Ball(float x, float y) {
 	posX = x;
 	posY = y;
 	width = 10;
@@ -44,19 +43,16 @@ Ball::Ball(float x, float y){
 	resetSpeed();
 }
 
-void Ball::eventCollission(Entity * entityPtr){
+void Ball::eventCollission(Entity * entityPtr) {
 	if (dynamic_cast<Player*>(entityPtr) != nullptr) {
-		if (posX > entityPtr->getX()) {
-			posX = entityPtr->getX() + entityPtr->getWidth();
+		if (posX > entityPtr->posX) {
+			posX = entityPtr->posX + entityPtr->width;
 		}
 		else {
-			posX = entityPtr->getX() - width;
+			posX = entityPtr->posX - width;
 		}
 		angle = 180 - angle;
 		if (angle > 360) angle -= 360;
 		if (angle < 0) angle += 360;
 	}
-}
-
-Ball::~Ball(){
 }

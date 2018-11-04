@@ -3,24 +3,18 @@
 
 class GameMode;
 
-class Entity
-{
+class Entity {
 	friend class GameMode;
-protected:
+public:
 	float posX, posY;
 	float height, width;
-	
 protected:
 	virtual void update();
 	virtual void render(SDL_Renderer * renderer);
 	virtual void handleEvent(const SDL_Event & event);
 public:
-	Entity();
-	virtual ~Entity();
-	const float getX() const;
-	const float getY() const;
-	const float getWidth() const;
-	const float getHeight() const;
+	Entity() = default;
+	virtual ~Entity() = default;
 	const SDL_Rect getRect() const;
 	virtual void eventCollission(Entity * entityPtr);
 	static bool checkCollision(SDL_Rect r1, SDL_Rect r2);

@@ -18,5 +18,5 @@ private:
 
 public:
 	Game();
-	~Game();
+	~Game() = default;
 };
