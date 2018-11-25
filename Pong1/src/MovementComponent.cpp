@@ -1,4 +1,4 @@
-#include "..\include\MovementComponent.h"
+#include "../include/MovementComponent.h"
 
 MovementComponent::MovementComponent(float maxSpeed){
 	this->maxSpeed = maxSpeed;
