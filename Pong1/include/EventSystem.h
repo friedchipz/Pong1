@@ -12,7 +12,6 @@ class Message {
 };
 
 class Subscriber {
-	std::function<void(Message)> update;
 	virtual void update(Message msg) = 0;
 };
 
