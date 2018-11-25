@@ -1,58 +1,52 @@
-#include "../include/Ball.h"
-#include "../include/Player.h"
 #include <stdlib.h>     /* srand, rand */
 
-void Ball::update() {
-	//update ball position
-	posX += speed * cos(angle*M_PI / 180);
-	posY += speed * sin(angle*M_PI / 180);
-
-	//check for colisions on top or bottom to
-	if (posY <= 0) {		//reached top
-		posY = 0;
-		angle = -angle;
-	}
-	else if (posY + height > 480) { //reached bottom
-		posY = 480 - height;
-		angle = -angle;
-	}
-	if (angle > 360) angle -= 360;
-	if (angle < 0) angle += 360;
-}
-
-void Ball::render(SDL_Renderer * renderer) {
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_Rect rect = getRect();
-	SDL_RenderFillRect(renderer, &rect);
-}
+#include "../include/Ball.h"
+#include "../include/Player.h"
+#include "CoreComponents.h"
 
 void Ball::resetSpeed() {
-	posX = 320;
-	posY = 240;
-	speed = 200 / 60;
-	angle = ((rand() % 4) * 90. + 45.);
+	getComponent<TransformComponent>().pos = Vector2d(320,240);
+	getComponent<PolarMovementComponent>().speed = getComponent<PolarMovementComponent>().maxSpeed;
+	getComponent<PolarMovementComponent>().angle = ((rand() % 4) * 90. + 45.);
 }
 
 Ball::Ball(float x, float y) {
-	posX = x;
-	posY = y;
-	width = 10;
-	height = 10;
-	speed = 0;
-	angle = 0;
+	SDL_Rect area;
+	SDL_Color color;
+	area = { 0, 0, 10, 10 };
+	color = { 255, 255, 255, 255 };
+	this->addComponent<TransformComponent>(x, y);
+	this->addComponent<PolarMovementComponent>(200/60);
+	this->addComponent<ColliderComponent>(area);
+	this->addComponent<SolidRendererComponent>(color, area);
+	getComponent<ColliderComponent>().addBinding(std::bind(&Ball::OnCollission, this,std::placeholders::_1));
 	resetSpeed();
 }
 
-void Ball::eventCollission(Entity * entityPtr) {
-	if (dynamic_cast<Player*>(entityPtr) != nullptr) {
-		if (posX > entityPtr->posX) {
-			posX = entityPtr->posX + entityPtr->width;
+Ball::~Ball() {
+	//not working. needs big refactor
+	getComponent<ColliderComponent>().delBinding(std::bind(&Ball::OnCollission, this, std::placeholders::_1));
+}
+
+void Ball::OnCollission(Entity * entityPtr) {
+	if (entityPtr->hasComponent<ColliderComponent>()) {
+		SDL_Rect oppositeRect = entityPtr->getComponent<ColliderComponent>().getTransformedArea();
+		SDL_Rect ownRect = getComponent<ColliderComponent>().getTransformedArea();
+		if (ColliderComponent::fromRight(oppositeRect, ownRect)) {
+			getComponent<PolarMovementComponent>().bounceH();
+			getComponent<TransformComponent>().x = oppositeRect.x + oppositeRect.w;
+		} else
+		if (ColliderComponent::fromLeft(oppositeRect, ownRect)) {
+			getComponent<PolarMovementComponent>().bounceH();
+			getComponent<TransformComponent>().x = oppositeRect.x - ownRect.w;
 		}
-		else {
-			posX = entityPtr->posX - width;
+		if (ColliderComponent::fromBelow(oppositeRect, ownRect)) {
+			getComponent<PolarMovementComponent>().bounceV();
+			getComponent<TransformComponent>().y = oppositeRect.y + oppositeRect.h;
+		} else
+		if (ColliderComponent::fromAbove(oppositeRect, ownRect)) {
+			getComponent<PolarMovementComponent>().bounceV();
+			getComponent<TransformComponent>().y = oppositeRect.y - ownRect.h;
 		}
-		angle = 180 - angle;
-		if (angle > 360) angle -= 360;
-		if (angle < 0) angle += 360;
 	}
 }

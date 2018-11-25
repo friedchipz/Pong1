@@ -7,7 +7,10 @@
 #include <iostream>
 
 #include <SDL.h>
-#include <vector>
+#include <set>
+#include <iterator>
+
+#include "../include/ColliderComponent.h"
 
 GameMode::GameMode() {
 	window = nullptr;
@@ -44,11 +47,14 @@ void GameMode::update() {
 	for (Entity * entity : entities) {
 		entity->update();
 	}
-	//this can be optimized...
-	for (Entity * e1 : entities) {
-		for (Entity * e2 : entities) {
-			if (e1 != e2 && Entity::checkCollision(e1->getRect(), e2->getRect())) {
-				e1->eventCollission(e2);
+	for (std::set<Entity *>::iterator iterE1 = entities.begin(); iterE1 != entities.end(); iterE1 = std::next(iterE1)) {
+		if (!(*iterE1)->hasComponent<ColliderComponent>()) continue;
+		for (auto iterE2 = std::next(iterE1); iterE2 != entities.end(); iterE2++){
+			if (!(*iterE2)->hasComponent<ColliderComponent>()) continue;
+			if ((*iterE1) == (*iterE2)) continue;
+			if ((*iterE1)->getComponent<ColliderComponent>().checkCollission((*iterE2)->getComponent<ColliderComponent>())) {
+				(*iterE1)->getComponent<ColliderComponent>().collide((*iterE2));
+				(*iterE2)->getComponent<ColliderComponent>().collide((*iterE1));
 			}
 		}
 	}
@@ -71,7 +77,7 @@ void GameMode::handleEvent() {
 		return;
 	}
 	for (Entity * entity : entities) {
-		entity->handleEvent(event);
+		//entity->handleEvent(event);
 	}
 }
 

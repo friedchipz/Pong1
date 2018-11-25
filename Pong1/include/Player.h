@@ -1,5 +1,6 @@
 #pragma once
-#include "Entity.h"
+#include <SDL.h>
+#include "../include/ECS.h"
 class Player : public Entity {
 protected:
 	float speedFactor;
@@ -7,9 +8,9 @@ protected:
 	float acceleration;
 	SDL_Keycode up, down;
 protected:
-	virtual void update();
-	virtual void render(SDL_Renderer * renderer);
-	virtual void handleEvent(const SDL_Event & event);
+	//virtual void update();
+	//virtual void render(SDL_Renderer * renderer);
+	//virtual void handleEvent(const SDL_Event & event);
 public:
 	Player(float x, float y, const SDL_Keycode up, const SDL_Keycode down);
 	void setInputEventUp(const SDL_Keycode up);

@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Programacion\SDL\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Programacion\GameProjects\Pong1\Pong1\include;E:\Programacion\SDL\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>E:\Programacion\SDL\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -101,7 +101,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\Programacion\SDL\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Programacion\GameProjects\Pong1\Pong1\include;E:\Programacion\SDL\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -128,18 +128,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Ball.h" />
-    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\ColliderComponent.h" />
+    <ClInclude Include="include\CoreComponents.h" />
+    <ClInclude Include="include\EventSystem.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\GameMode.h" />
+    <ClInclude Include="include\ECS.h" />
+    <ClInclude Include="include\GoalZone.h" />
+    <ClInclude Include="include\InputComponent.h" />
+    <ClInclude Include="include\Maths.h" />
+    <ClInclude Include="include\MovementComponent.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\PolarMovementComponent.h" />
+    <ClInclude Include="include\SolidRendererComponent.h" />
+    <ClInclude Include="include\TransformComponent.h" />
+    <ClInclude Include="include\Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="src\Ball.cpp" />
-    <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\ColliderComponent.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
+    <ClCompile Include="src\GoalZone.cpp" />
+    <ClCompile Include="src\InputComponent.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MovementComponent.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\ECS.cpp" />
+    <ClCompile Include="src\Maths.cpp" />
+    <ClCompile Include="src\PolarMovementComponent.cpp" />
+    <ClCompile Include="src\SolidRendererComponent.cpp" />
+    <ClCompile Include="src\TransformComponent.cpp" />
+    <ClCompile Include="src\Wall.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
