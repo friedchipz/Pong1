@@ -11,7 +11,6 @@
 #include <iterator>
 
 #include "ColliderComponent.h"
-#include "TextureManager.h"
 
 GameMode::GameMode() {
 	window = nullptr;
@@ -42,9 +41,6 @@ void GameMode::init() {
 	window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, 0);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    
-    // load textures
-    TextureManager::Instance().load("assets/animate.bmp", "animate", renderer);
 }
 
 void GameMode::update() {
@@ -70,7 +66,6 @@ void GameMode::render() {
 	for (Entity * entity : entities) {
 		entity->render(renderer);
 	}
-
 	SDL_RenderPresent(renderer);
 }
 
