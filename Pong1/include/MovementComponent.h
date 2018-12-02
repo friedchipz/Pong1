@@ -1,7 +1,7 @@
 #pragma once
-#include "../include/ECS.h"
-#include "../include/TransformComponent.h"
-#include "../include/Maths.h"
+#include "ECS.h"
+#include "TransformComponent.h"
+#include "Maths.h"
 
 class MovementComponent : public Component {
 public:

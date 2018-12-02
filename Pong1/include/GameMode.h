@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <set>
-#include "../include/ECS.h"
+#include "ECS.h"
 class GameMode {
 protected:
 	//data for rendering

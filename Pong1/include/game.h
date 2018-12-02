@@ -1,10 +1,10 @@
 #pragma once
 #include <SDL.h>
-#include "../include/GameMode.h"
-#include "../include/Player.h"
-#include "../include/Ball.h"
-#include "../include/Wall.h"
-#include "../include/GoalZone.h"
+#include "GameMode.h"
+#include "Player.h"
+#include "Ball.h"
+#include "Wall.h"
+#include "GoalZone.h"
 #include "CoreComponents.h"
 class Game : public GameMode  {
 private:

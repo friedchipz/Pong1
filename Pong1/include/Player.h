@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL.h>
-#include "../include/ECS.h"
+#include "ECS.h"
 class Player : public Entity {
 protected:
 	float speedFactor;

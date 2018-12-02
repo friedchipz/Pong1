@@ -145,7 +145,7 @@
     <ClInclude Include="include\Wall.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="src\EventSystem.cpp" />
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\ColliderComponent.cpp" />
     <ClCompile Include="src\game.cpp" />

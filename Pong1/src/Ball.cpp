@@ -1,7 +1,7 @@
 #include <stdlib.h>     /* srand, rand */
 
-#include "../include/Ball.h"
-#include "../include/Player.h"
+#include "Ball.h"
+#include "Player.h"
 #include "CoreComponents.h"
 
 void Ball::resetSpeed() {
@@ -11,14 +11,12 @@ void Ball::resetSpeed() {
 }
 
 Ball::Ball(float x, float y) {
-	SDL_Rect area;
 	SDL_Color color;
-	area = { 0, 0, 10, 10 };
 	color = { 255, 255, 255, 255 };
 	this->addComponent<TransformComponent>(x, y);
 	this->addComponent<PolarMovementComponent>(200/60);
-	this->addComponent<ColliderComponent>(area);
-	this->addComponent<SolidRendererComponent>(color, area);
+	this->addComponent<ColliderComponent>(SDL_Rect {0,0,10,10});
+	this->addComponent<SolidRendererComponent>(color, SDL_Rect{ 0,0,10,10 });
 	getComponent<ColliderComponent>().addBinding(std::bind(&Ball::OnCollission, this,std::placeholders::_1));
 	resetSpeed();
 }

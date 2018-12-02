@@ -2,7 +2,7 @@
 #include <functional>
 #include <map>
 #include <SDL.h>
-#include "../include/ECS.h"
+#include "ECS.h"
 class InputComponent : public Component {
 protected:
 	std::map<SDL_Keycode ,std::function<void(float)>> callBacks;

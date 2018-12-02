@@ -22,13 +22,23 @@ private:
 public:
 	Event();
 	virtual ~Event();
-
-
+	void subscribe(Subscriber * subscriber);
+	void unsusbcribe(Subscriber * subscriber);
+	void notify(Message msg);
+	
 };
+
+// for now, this will be a singleton
+// later will be included in the engine core systems
+// and will be accessed through the engine instance, like Engine::getSystem<EventSystem>()
 
 class EventSystem {
 	
 private:
+	//ctor:
+	//must initialize core events, like input keys, mouse, etc
+	static EventSystem * instance;
+	EventSystem();
 	std::map<EventID, Event *> events;
 	std::map<std::string, EventID> eventNames;
 	inline EventID getNewID() {
@@ -36,17 +46,14 @@ private:
 		return lastID++;
 	}
 public:
-	//ctors?
-	//no dtors needed, the events destruction should be
-	//managed by the event creator, surely.
+	static EventSystem * getInstance();
+	//dtor to remove the core events
 	EventID registerEvent(Event * event, const std::string name = nullptr);
 	void unregisterEvent(Event * event);
 	void unregisterEvent(const EventID eventID);
 	void unregisterEvent(const std::string eventName);
 	Event * getEvent(const EventID eventID) const;
 	Event * getEvent(const std::string eventName) const;
-	void update();	//polls events from SDL event pool and
-			//later from the events buffer? maybe?
-			//(when multithreading comes in?)
+	void update();	//polls events from SDL event pool and maybe other things (?)
 };
 

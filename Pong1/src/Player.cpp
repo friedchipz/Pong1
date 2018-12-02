@@ -1,20 +1,9 @@
-#include "../include/Player.h"
-#include "../include/TransformComponent.h"
-#include "../include/ColliderComponent.h"
-#include "../include/SolidRendererComponent.h"
-#include "../include/MovementComponent.h"
+#include "Player.h"
+#include "TransformComponent.h"
+#include "ColliderComponent.h"
+#include "SolidRendererComponent.h"
+#include "MovementComponent.h"
 
-/*void Player::update() {
-	//update player positions
-	posY += speedFactor * maxSpeed;
-	if (posY + height > 480) {		//reached bottom
-		posY = 480 - height;
-	}
-	else if (posY < 0) {	//reached top
-		posY = 0;
-	}
-}
-*/
 
 /*void Player::handleEvent(const SDL_Event & event) {
 	SDL_Keycode key;
@@ -41,15 +30,8 @@ void Player::setInputEventDown(const SDL_Keycode down) {
 }
 
 Player::Player(float x, float y, SDL_Keycode up, SDL_Keycode down):up(up), down(down){
-	SDL_Rect auxRect;
-	SDL_Color color;
-	auxRect.x = 0;
-	auxRect.y = 0;
-	auxRect.w = 10;
-	auxRect.h = 50;
-	color.r = color.g = color.b = color.a = 255;
 	addComponent<TransformComponent>(x,y);
 	addComponent<MovementComponent>(10);
-	addComponent<ColliderComponent>(auxRect);
-	addComponent<SolidRendererComponent>(color, auxRect);
+	addComponent<ColliderComponent>(SDL_Rect { 0, 0, 10, 50 });
+	addComponent<SolidRendererComponent>(SDL_Color { 255, 255, 255,255 }, SDL_Rect { 0, 0, 10, 50 });
 }

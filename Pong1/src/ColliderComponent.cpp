@@ -4,15 +4,8 @@ ColliderComponent::ColliderComponent(SDL_Rect area){
 	this->area = area;
 }
 
-ColliderComponent::ColliderComponent(float x, float y, float w, float h){
-	area.x = x;
-	area.y = y;
-	area.w = w;
-	area.h = h;
-}
-
 ColliderComponent::ColliderComponent(Vector2d pos, Vector2d size) :
-	ColliderComponent(pos.x, pos.y, size.x, size.y){}
+	ColliderComponent(SDL_Rect{ (int)pos.x, (int)pos.y, (int)size.x, (int)size.y }) {}
 
 SDL_Rect ColliderComponent::getTransformedArea(){
 	return entity->getComponent<TransformComponent>().transformRect(area);

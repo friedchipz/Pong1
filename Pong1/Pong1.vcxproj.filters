@@ -110,7 +110,7 @@
     <ClCompile Include="src\InputComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="EventSystem.cpp">
+    <ClCompile Include="src\EventSystem.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

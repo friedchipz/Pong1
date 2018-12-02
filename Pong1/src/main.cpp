@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/game.h"
+#include "game.h"
 int main(int argc, char * argv[]) {
 	try {
 		Game * game = new Game();

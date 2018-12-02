@@ -1,4 +1,4 @@
-#include "../include/SolidRendererComponent.h"
+#include "SolidRendererComponent.h"
 
 SolidRendererComponent::SolidRendererComponent(SDL_Color fillColor, SDL_Rect area): fillColor(fillColor), area(area){}
 

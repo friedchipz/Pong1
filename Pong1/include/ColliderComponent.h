@@ -2,15 +2,14 @@
 #include <functional>
 #include <set>
 #include <SDL.h>
-#include "../include/ECS.h"
-#include "../include/Maths.h"
+#include "ECS.h"
+#include "Maths.h"
 class ColliderComponent : public Component {
 protected:
 	std::set<std::function<void(Entity *)>> callBacks;
 public:
 	SDL_Rect area;
 	ColliderComponent(SDL_Rect area);
-	ColliderComponent(float x, float y, float w, float h);
 	ColliderComponent(Vector2d pos, Vector2d size);
 	~ColliderComponent() = default;
 	SDL_Rect getTransformedArea();

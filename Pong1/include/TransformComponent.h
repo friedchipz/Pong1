@@ -1,6 +1,6 @@
 #pragma once
-#include "../include/ECS.h"
-#include "../include/Maths.h"
+#include "ECS.h"
+#include "Maths.h"
 class TransformComponent : public Component {
 public:
 	float x, y, scaleX, scaleY;

@@ -1,5 +1,5 @@
 #pragma once
-#include "../include/ECS.h"
+#include "ECS.h"
 class PolarMovementComponent : public Component {
 public:
 	float angle;

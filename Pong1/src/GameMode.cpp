@@ -1,4 +1,4 @@
-#include "../include/GameMode.h"
+#include "GameMode.h"
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -10,7 +10,7 @@
 #include <set>
 #include <iterator>
 
-#include "../include/ColliderComponent.h"
+#include "ColliderComponent.h"
 
 GameMode::GameMode() {
 	window = nullptr;
