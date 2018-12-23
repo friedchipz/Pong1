@@ -8,7 +8,7 @@
 
 #include "TextureManager.h"
 
-bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer* pRenderer) {
+bool TextureManager::load(const string &fileName, const string &key, SDL_Renderer* pRenderer) {
     
     // TODO add support for other types of images
     // SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
@@ -23,6 +23,6 @@ bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer* pR
         return false;
     }
     
-    m_textureMap[id] = pTexture;
+    m_textureMap[key] = pTexture;
     return true;
 }

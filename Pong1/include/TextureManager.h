@@ -13,6 +13,8 @@
 #include <string>
 #include <map>
 
+using namespace std;
+
 class TextureManager {
     
 // Start Singleton
@@ -28,13 +30,13 @@ private:
 // End Singleton
     
 public:
-    bool load(std::string fileName, std::string id, SDL_Renderer* pRenderer);
+    bool load(const string &fileName, const string &key, SDL_Renderer* pRenderer);
 
     //TODO return texture by id
-    SDL_Texture* getTexture(std::string id) { return m_textureMap[id]; }
+    SDL_Texture* getTexture(string id) { return m_textureMap[id]; }
     
 private:
-    std::map<std::string, SDL_Texture*> m_textureMap;
+    map<string, SDL_Texture*> m_textureMap;
 };
 
 #endif /* TextureManager_h */
