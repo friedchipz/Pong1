@@ -28,7 +28,7 @@ private:
 // End Singleton
     
 public:
-    bool load(std::string fileName, std::string id, SDL_Renderer* pRenderer);
+    bool load(const std::string &fileName, const std::string &key, SDL_Renderer* pRenderer);
 
     //TODO return texture by id
     SDL_Texture* getTexture(std::string id) { return m_textureMap[id]; }
