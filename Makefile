@@ -8,8 +8,8 @@ INCDIR	:= $(ROOT)/include
 SRCDIR	:= $(ROOT)/src
 OBJDIR	:= $(ROOT)/obj
 
-SRC		= $(notdir $(wildcard Pong1/src/*.cpp ))
-OBJ		:= $(addprefix Pong1/obj/, $(patsubst %.cpp, %.o, $(SRC)))
+SRC		= $(notdir $(wildcard $(SRCDIR)/*.cpp ))
+OBJ		:= $(addprefix $(OBJDIR)/, $(patsubst %.cpp, %.o, $(SRC)))
 LIBRARIES	:= -lm -lSDL2main
 
 ifeq ($(OS),Windows_NT)
@@ -24,9 +24,11 @@ else
 	libsdl		:= $(SDL_LIB)/libSDL2.so
 endif
 
-.PHONY : clean veryclean directories link all
+.PHONY : clean veryclean directories link build run
 
-all: directories link
+build: directories link
+
+run: directories link
 	$(BINDIR)/$(EXECUTABLE)
 
 directories:
@@ -40,7 +42,7 @@ clean:
 veryclean: clean
 	$(RM) -r $(BINDIR)
 
-Pong1/obj/%.o : Pong1/src/%.cpp
+$(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	$(CPP) $(C_FLAGS) -I$(INCDIR) -I$(SDL_INCLUDE) -L$(SDL_LIB) -c -o $@ $<
 
 link: $(OBJ)
