@@ -260,3 +260,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+Pong1.xcodeproj/*
+Pong1/Pong1.sln
+Pong1/Pong1/Pong1.mdproj
