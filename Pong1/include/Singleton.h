@@ -2,20 +2,21 @@
 template <class T> class Singleton {
 
 public:
-  static T* Instance() {
-      if(!m_pInstance) m_pInstance = new T;
-      assert(m_pInstance != NULL);
-      return m_pInstance;
-  }
+    static T* getInstance();
 
 protected:
-  Singleton();
-  ~Singleton();
+    Singleton() = default;
+    ~Singleton() = default;
 
 private:
-  Singleton(Singleton const&);
-  Singleton& operator=(Singleton const&);
-  static T* m_pInstance;
+    static T* m_pInstance;
 };
  
-template <class T> T* Singleton<T>::m_pInstance=NULL;
+template <class T>
+T* Singleton<T>::m_pInstance=nullptr;
+
+template <class T>
+T* Singleton<T>::getInstance(){
+    if(!m_pInstance) m_pInstance = new T;
+    return m_pInstance;
+}
