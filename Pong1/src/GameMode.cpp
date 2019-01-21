@@ -57,8 +57,8 @@ void GameMode::update() {
 			if (!(*iterE2)->hasComponent<ColliderComponent>()) continue;
 			if ((*iterE1) == (*iterE2)) continue;
 			if ((*iterE1)->getComponent<ColliderComponent>().checkCollission((*iterE2)->getComponent<ColliderComponent>())) {
-				(*iterE1)->getComponent<ColliderComponent>().collide((*iterE2));
-				(*iterE2)->getComponent<ColliderComponent>().collide((*iterE1));
+				(*iterE1)->getComponent<ColliderComponent>().getEventOnCollision()->send(*iterE2);
+				(*iterE2)->getComponent<ColliderComponent>().getEventOnCollision()->send(*iterE1);
 			}
 		}
 	}

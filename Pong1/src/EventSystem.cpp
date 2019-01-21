@@ -1,12 +1,6 @@
 #include "EventSystem.h"
 #include "Singleton.h"
 
-BaseSubscriber::BaseSubscriber():eventID(0) {}
-
-EventID BaseSubscriber::getEventID() {
-	return eventID;
-}
-
 BaseEvent::BaseEvent(EventID eventID):eventID(eventID){}
 
 void BaseEvent::subscribe(BaseSubscriber * subscriber){
@@ -14,18 +8,13 @@ void BaseEvent::subscribe(BaseSubscriber * subscriber){
 }
 
 void BaseEvent::unsusbcribe(BaseSubscriber * subscriber){
-	subscriber->eventID=0;
-	for (auto iter = subscribers.begin(); iter!= subscribers.end(); iter++){
-		if (*iter == subscriber) {
-			subscribers.erase(iter);
-			break;
-		}
-	}
+	subscriber->eventIDs.erase(eventID);
+	subscribers.erase(subscriber);
 }
 
 BaseEvent::~BaseEvent(){
 	// could use unsubscribe but this way is 'much' faster
-	for (BaseSubscriber * s : subscribers) s->eventID=0;
+	for (BaseSubscriber * s : subscribers) s->eventIDs.erase(eventID);
 	Singleton<EventSystem>::getInstance()->unregisterEvent(this);
 }
 
@@ -37,10 +26,7 @@ BaseEvent * EventSystem::getEvent(const std::string & eventName) const {
 	return eventNames.find(eventName)->second;
 }
 
-EventID EventSystem::getNewID() {
-		static EventID lastID = 1;
-		return lastID++;
-}
+
 
 EventID EventSystem::registerEvent(BaseEvent * event, const std::string eventName) {
 	events[event->eventID] = event;

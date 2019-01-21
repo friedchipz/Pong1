@@ -2,16 +2,30 @@
 
 ColliderComponent::ColliderComponent(SDL_Rect area){
 	this->area = area;
+	eventOnCollision = Singleton<EventSystem>::getInstance()->newEvent<Entity*>();
+	actionOnCollision = new Subscriber<Entity*>();
 }
 
 ColliderComponent::ColliderComponent(Vector2d pos, Vector2d size) :
 	ColliderComponent(SDL_Rect{ (int)pos.x, (int)pos.y, (int)size.x, (int)size.y }) {}
 
-SDL_Rect ColliderComponent::getTransformedArea(){
+ColliderComponent::~ColliderComponent(){
+	delete eventOnCollision;
+	delete actionOnCollision;
+}
+
+SDL_Rect ColliderComponent::getTransformedArea() const{
 	return entity->getComponent<TransformComponent>().transformRect(area);
 }
 
-void ColliderComponent::addBinding(std::function<void(Entity*)> const callback){
+Event<Entity *> * ColliderComponent::getEventOnCollision() const{
+	return eventOnCollision;
+}
+
+Subscriber<Entity *> * ColliderComponent::getActionOnCollision() const{
+	return actionOnCollision;
+}
+/*void ColliderComponent::addBinding(std::function<void(Entity*)> const callback){
 	std::function<void(Entity*)> f = callback;
 	//callBacks.push_back(callback);
 	callBacks.insert(callBacks.end(), callback);
@@ -24,15 +38,16 @@ void ColliderComponent::delBinding(std::function<void(Entity*)> callback) {
 	callBacks.erase(bindIter);
 	//callBacks.remove(callback);
 }
-
+*/
 bool operator<(std::function<void(Entity*)> const & f1, std::function<void(Entity*)> const  & f2) {
 	return &f1 < &f2;
 }
 
 void ColliderComponent::collide(Entity * triggerer){
-	for (auto callback : callBacks) {
+	/*for (auto callback : callBacks) {
 		callback(triggerer);
-	}
+	}*/
+	eventOnCollision->send(triggerer);
 }
 
 bool ColliderComponent::fromAbove(SDL_Rect ref, SDL_Rect body){

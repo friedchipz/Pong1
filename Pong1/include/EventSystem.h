@@ -17,11 +17,10 @@ class BaseSubscriber{
 	//don't like this...
 	friend class BaseEvent;
 public:
-	BaseSubscriber();
+	BaseSubscriber() = default;
 	virtual ~BaseSubscriber() = default;
-	EventID getEventID();
 protected:
-	EventID eventID;
+	std::set<EventID> eventIDs;
 };
 
 /*
@@ -31,9 +30,8 @@ protected:
 
 class BaseEvent {
 	friend class EventSystem;
-private:
-	std::set<BaseSubscriber *> subscribers;
 protected:
+	std::set<BaseSubscriber *> subscribers;
 	EventID eventID;
 	BaseEvent(EventID eventID);
 	~BaseEvent();
@@ -52,7 +50,9 @@ class Subscriber: public BaseSubscriber {
 protected:
 	std::function<void(Args&&...)> func;
 public:
+	Subscriber();
 	Subscriber(std::function<void(Args&&...)> nfunc);
+	void rebind(std::function<void(Args&&...)> nfunc);
 	~Subscriber();
 	void update(Args&&... mArgs);
 };
@@ -68,6 +68,7 @@ class Event: public BaseEvent {
 public:
 	//virtual void subscribe(Subscriber<Args...> * subscriber);
 	virtual ~Event() = default;
+	virtual void send(Args...);
 protected:
 	Event(EventID eventID);
 }; 
@@ -107,9 +108,16 @@ private:
 	definitions for Subscriber
 
 */
+template <typename ... Args>
+Subscriber<Args...>::Subscriber():Subscriber([](Args&&...){}){}
 
 template <typename ... Args>
 Subscriber<Args...>::Subscriber(std::function<void(Args&&...)> nfunc):func(nfunc){};
+
+template <typename ... Args>
+void Subscriber<Args...>::rebind(std::function<void(Args&&...)> nfunc){
+	func=nfunc;
+}
 
 template <typename ... Args>
 void Subscriber<Args...>::update(Args&&... mArgs){
@@ -118,9 +126,10 @@ void Subscriber<Args...>::update(Args&&... mArgs){
 
 template <typename ... Args>
 Subscriber<Args...>::~Subscriber(){
-	if (eventID==0) return;
-	Event<Args...> * pEvent = Singleton<EventSystem>::getInstance()->getEvent<Args...>(eventID);
-	if (pEvent != nullptr) pEvent->unsusbcribe(this);
+	for (auto eID : eventIDs){
+		Event<Args...> * pEvent = Singleton<EventSystem>::getInstance()->getEvent<Args...>(eID);
+		if (pEvent != nullptr) pEvent->unsusbcribe(this);
+	}
 }
 
 /*
@@ -131,6 +140,14 @@ Subscriber<Args...>::~Subscriber(){
 template <typename ... Args>
 Event<Args...>::Event(EventID eventID):BaseEvent(eventID){};
 
+template <typename ... Args>
+void Event<Args...>::send(Args... mArgs){
+	for (auto subscriber : subscribers){
+		auto s = dynamic_cast<Subscriber<Args...>*>(subscriber);
+		if(s!=nullptr) s->update(std::forward<Args>(mArgs)...);
+	}
+}
+
 /*
 	definitions for EventSystem
 
@@ -140,6 +157,7 @@ template <typename ... Args>
 Event<Args...> * EventSystem::newEvent(const std::string eventName){
 	Event<Args...> * event = new Event<Args...>(getNewID());
 	registerEvent(event, eventName);
+	return event;
 }
 
 template <typename ... Args>
@@ -150,4 +168,9 @@ Event <Args...> * EventSystem::getEvent(const EventID eventID) const{
 template <typename ... Args>
 Event<Args...> * EventSystem::getEvent(const std::string eventName) const{
 	return dynamic_cast<Event<Args...>*>(getEvent(eventName));
+}
+
+inline EventID EventSystem::getNewID() {
+		static EventID lastID = 1;
+		return lastID++;
 }
