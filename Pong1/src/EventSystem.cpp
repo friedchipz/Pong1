@@ -3,10 +3,9 @@
 
 BaseSubscriber::BaseSubscriber():eventID(0) {}
 
-EventID BaseSubscriber::getEvent() {
+EventID BaseSubscriber::getEventID() {
 	return eventID;
 }
-
 
 BaseEvent::BaseEvent(EventID eventID):eventID(eventID){}
 
@@ -17,15 +16,11 @@ void BaseEvent::subscribe(BaseSubscriber * subscriber){
 void BaseEvent::unsusbcribe(BaseSubscriber * subscriber){
 	subscriber->eventID=0;
 	for (auto iter = subscribers.begin(); iter!= subscribers.end(); iter++){
-		if (iter->second == subscriber) {
+		if (*iter == subscriber) {
 			subscribers.erase(iter);
 			break;
 		}
 	}
-}
-
-BaseEvent::BaseEvent(){
-
 }
 
 BaseEvent::~BaseEvent(){
@@ -47,9 +42,11 @@ EventID EventSystem::getNewID() {
 		return lastID++;
 }
 
-EventID EventSystem::registerEvent(BaseEvent * event, const std::string name) {
-	EventID newEID = getNewID();
-	events[newEID] = event;
+EventID EventSystem::registerEvent(BaseEvent * event, const std::string eventName) {
+	events[event->eventID] = event;
+	if (eventNames.find(eventName)==eventNames.end()){
+		eventNames[eventName]=event;
+	}
 	return EventID();
 }
 

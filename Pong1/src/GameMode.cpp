@@ -81,9 +81,9 @@ void GameMode::handleEvent() {
 		finished = true;
 		return;
 	}
-	for (Entity * entity : entities) {
+	/*for (Entity * entity : entities) {
 		//entity->handleEvent(event);
-	}
+	}*/
 }
 
 void GameMode::clean() {

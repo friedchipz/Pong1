@@ -1,3 +1,5 @@
+#ifndef _SINGLETON_H_
+#define _SINGLETON_H_
 
 template <class T> class Singleton {
 
@@ -17,6 +19,8 @@ T* Singleton<T>::m_pInstance=nullptr;
 
 template <class T>
 T* Singleton<T>::getInstance(){
-    if(!m_pInstance) m_pInstance = new T;
+    if(!m_pInstance) m_pInstance = new T();
     return m_pInstance;
 }
+
+#endif
