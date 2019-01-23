@@ -28,7 +28,7 @@ public:
 	GameMode();
 	~GameMode() = default;
 	void gameLoop();
-	const bool isFinished() const;
+	bool isFinished() const;
 	void registerEntity(Entity * newEntity);
 	void unregisterEntity(Entity * newEntity);
 };

@@ -17,20 +17,20 @@ Ball::Ball(float x, float y) {
 	this->addComponent<PolarMovementComponent>(200/60);
 	this->addComponent<ColliderComponent>(SDL_Rect {0,0,10,10});
 	this->addComponent<SolidRendererComponent>(color, SDL_Rect{ 0,0,10,10 });
-	actionOnCollision = new Subscriber<Entity*>([this](Entity* e){OnCollission(e);});///std::bind(&Ball::OnCollission, this, std::placeholders::_1));
+	OnCollision = new Subscriber<Entity*>([this](Entity* e){actOnCollision(e);});///std::bind(&Ball::OnCollission, this, std::placeholders::_1));
 	resetSpeed();
 }
 
 Ball::~Ball() {
-	delete actionOnCollision;
+	delete OnCollision;
 }
 
 BaseSubscriber * Ball::getCollisionSubscriber(){
-	return actionOnCollision;
+	return OnCollision;
 }
 
 
-void Ball::OnCollission(Entity * entityPtr) {
+void Ball::actOnCollision(Entity * entityPtr) {
 	if (entityPtr->hasComponent<ColliderComponent>()) {
 		SDL_Rect oppositeRect = entityPtr->getComponent<ColliderComponent>().getTransformedArea();
 		SDL_Rect ownRect = getComponent<ColliderComponent>().getTransformedArea();

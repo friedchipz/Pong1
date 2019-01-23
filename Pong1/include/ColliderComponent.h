@@ -8,8 +8,8 @@
 class ColliderComponent : public Component {
 protected:
 	//feels like subscribers
-	Event<Entity *> * eventOnCollision;
-	Subscriber<Entity *> * actionOnCollision;
+	Event<Entity *> * eventCollision;
+	Subscriber<Entity *> * onCollision;
 	//std::set<std::function<void(Entity *)>> callBacks;
 public:
 	SDL_Rect area;
@@ -17,8 +17,8 @@ public:
 	ColliderComponent(Vector2d pos, Vector2d size);
 	~ColliderComponent();
 	SDL_Rect getTransformedArea() const;
-	Event<Entity *> * getEventOnCollision() const;
-	Subscriber<Entity *> * getActionOnCollision() const;
+	Event<Entity *> * getEventCollision() const;
+	Subscriber<Entity *> * getOnCollision() const;
 	//feels like Event<Entity*>::Subscribe(Subscriber<Entity*> subscriber)
 	//void addBinding(std::function<void(Entity *)> callback);
 	//void delBinding(std::function<void(Entity *)> callback);

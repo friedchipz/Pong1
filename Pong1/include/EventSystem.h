@@ -1,5 +1,19 @@
 #pragma once
 
+//for debug only
+#include <iostream>
+#include <vector>
+#include <climits>
+#include <cstdint>
+#include <type_traits>
+#include <utility>
+ 
+template<typename ...Args>
+void printer(Args&&... args) {
+    (std::cout << ... << args) << '\n';
+}
+//end debug
+
 #include <map>
 #include <string>
 #include <set>
@@ -54,7 +68,7 @@ public:
 	Subscriber(std::function<void(Args&&...)> nfunc);
 	void rebind(std::function<void(Args&&...)> nfunc);
 	~Subscriber();
-	void update(Args&&... mArgs);
+	virtual void operator()(Args&&... mArgs);
 };
 
 /*
@@ -68,7 +82,7 @@ class Event: public BaseEvent {
 public:
 	//virtual void subscribe(Subscriber<Args...> * subscriber);
 	virtual ~Event() = default;
-	virtual void send(Args...);
+	virtual void operator()(Args...);
 protected:
 	Event(EventID eventID);
 }; 
@@ -120,7 +134,8 @@ void Subscriber<Args...>::rebind(std::function<void(Args&&...)> nfunc){
 }
 
 template <typename ... Args>
-void Subscriber<Args...>::update(Args&&... mArgs){
+void Subscriber<Args...>::operator()(Args&&... mArgs){
+	printer(std::forward<Args>(mArgs)...);
 	this->func(std::forward<Args>(mArgs)...);
 }
 
@@ -141,10 +156,11 @@ template <typename ... Args>
 Event<Args...>::Event(EventID eventID):BaseEvent(eventID){};
 
 template <typename ... Args>
-void Event<Args...>::send(Args... mArgs){
+void Event<Args...>::operator()(Args... mArgs){
 	for (auto subscriber : subscribers){
 		auto s = dynamic_cast<Subscriber<Args...>*>(subscriber);
-		if(s!=nullptr) s->update(std::forward<Args>(mArgs)...);
+		std::cout << s << std::endl;
+		if(s!=nullptr) (*s)(std::forward<Args>(mArgs)...);
 	}
 }
 

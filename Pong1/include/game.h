@@ -21,5 +21,5 @@ private:
 
 public:
 	Game();
-	~Game() = default;
+	virtual ~Game() = default;
 };
