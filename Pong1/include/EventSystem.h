@@ -1,19 +1,5 @@
 #pragma once
 
-//for debug only
-#include <iostream>
-#include <vector>
-#include <climits>
-#include <cstdint>
-#include <type_traits>
-#include <utility>
- 
-template<typename ...Args>
-void printer(Args&&... args) {
-    (std::cout << ... << args) << '\n';
-}
-//end debug
-
 #include <map>
 #include <string>
 #include <set>

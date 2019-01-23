@@ -29,7 +29,6 @@ BaseSubscriber * Ball::getCollisionSubscriber(){
 	return OnCollision;
 }
 
-
 void Ball::actOnCollision(Entity * entityPtr) {
 	if (entityPtr->hasComponent<ColliderComponent>()) {
 		SDL_Rect oppositeRect = entityPtr->getComponent<ColliderComponent>().getTransformedArea();
