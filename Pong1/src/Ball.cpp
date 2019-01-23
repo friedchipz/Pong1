@@ -17,16 +17,10 @@ Ball::Ball(float x, float y) {
 	this->addComponent<PolarMovementComponent>(200/60);
 	this->addComponent<ColliderComponent>(SDL_Rect {0,0,10,10});
 	this->addComponent<SolidRendererComponent>(color, SDL_Rect{ 0,0,10,10 });
-	OnCollision = new Subscriber<Entity*>([this](Entity* e){actOnCollision(e);});///std::bind(&Ball::OnCollission, this, std::placeholders::_1));
+	getComponent<ColliderComponent>().getOnCollision()->rebind(
+		[this](Entity* e){actOnCollision(e);}
+	);
 	resetSpeed();
-}
-
-Ball::~Ball() {
-	delete OnCollision;
-}
-
-BaseSubscriber * Ball::getCollisionSubscriber(){
-	return OnCollision;
 }
 
 void Ball::actOnCollision(Entity * entityPtr) {
