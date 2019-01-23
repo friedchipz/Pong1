@@ -22,7 +22,7 @@ void Game::init() {
 	srand(time(NULL));
 	p1Score = p2Score = 0;
 	ball = new Ball(315, 235);
-	auto ballSubs =ball->getComponent<ColliderComponent>().getOnCollision();
+	auto ballSubs =ball->getComponent<ColliderComponent>().getSubscriberOnCollision();
 	registerEntity(ball);
 
 	p1 = new Player(290, 215, SDLK_w, SDLK_s);
@@ -47,7 +47,7 @@ void Game::init() {
 
 	GoalZone * goal = new GoalZone(-10, 0, 0, 480);
 	goal->getComponent<ColliderComponent>().getEventCollision()->subscribe(ballSubs);
-	goal->getComponent<ColliderComponent>().getOnCollision()->rebind(
+	goal->getComponent<ColliderComponent>().getSubscriberOnCollision()->rebind(
 		[this](Entity * e){
 			if (dynamic_cast<Ball*>(e) != nullptr) Game::scoreGoal(2);
 		}
@@ -58,7 +58,7 @@ void Game::init() {
 	
 	goal = new GoalZone(640, 0, 650, 480);
 	goal->getComponent<ColliderComponent>().getEventCollision()->subscribe(ballSubs);
-	goal->getComponent<ColliderComponent>().getOnCollision()->rebind(
+	goal->getComponent<ColliderComponent>().getSubscriberOnCollision()->rebind(
 		[this](Entity * e){
 			if (dynamic_cast<Ball*>(e) != nullptr) Game::scoreGoal(1);
 		}

@@ -22,7 +22,7 @@ Event<Entity *> * ColliderComponent::getEventCollision() const{
 	return eventCollision;
 }
 
-Subscriber<Entity *> * ColliderComponent::getOnCollision() const{
+Subscriber<Entity *> * ColliderComponent::getSubscriberOnCollision() const{
 	return onCollision;
 }
 

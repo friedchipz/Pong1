@@ -121,7 +121,6 @@ void Subscriber<Args...>::rebind(std::function<void(Args&&...)> nfunc){
 
 template <typename ... Args>
 void Subscriber<Args...>::operator()(Args&&... mArgs){
-	printer(std::forward<Args>(mArgs)...);
 	this->func(std::forward<Args>(mArgs)...);
 }
 
@@ -145,7 +144,6 @@ template <typename ... Args>
 void Event<Args...>::operator()(Args... mArgs){
 	for (auto subscriber : subscribers){
 		auto s = dynamic_cast<Subscriber<Args...>*>(subscriber);
-		std::cout << s << std::endl;
 		if(s!=nullptr) (*s)(std::forward<Args>(mArgs)...);
 	}
 }

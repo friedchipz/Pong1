@@ -16,7 +16,7 @@ public:
 	~ColliderComponent();
 	SDL_Rect getTransformedArea() const;
 	Event<Entity *> * getEventCollision() const;
-	Subscriber<Entity *> * getOnCollision() const;
+	Subscriber<Entity *> * getSubscriberOnCollision() const;
 	bool checkCollission(ColliderComponent & checked);
 	void collide(Entity * triggerer);
 	static bool fromAbove(SDL_Rect ref, SDL_Rect body);
