@@ -21,14 +21,14 @@ class A{
 	int i;
 	A(float x, int i):x(x), i(i){}
 };
-int main(){
+int main(int argc, char ** argv){
 	auto myEvent = Singleton<EventSystem>::getInstance()->newEvent<A *>();
 	auto mySubs = new Subscriber<A*>();
 	auto mySubs2 = new Subscriber<A*>();
 	myEvent->subscribe(mySubs2);
 	myEvent->subscribe(mySubs);
 	mySubs->rebind([]( A * a) {std::cout << a->x << a->i << std::endl;});
-	mySubs2->rebind([]( A * a ){std::cout << a->x << a->i << std::endl;});
+	mySubs2->rebind([]( A * a){std::cout << a->x+2 << a->i << std::endl;});
 	A a(13.5,15);
 	(*myEvent)(&a);
 	delete mySubs;

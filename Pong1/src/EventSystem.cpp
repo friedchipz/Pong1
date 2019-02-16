@@ -1,11 +1,9 @@
 #include "EventSystem.h"
 #include "Singleton.h"
+#include "Util.h"
 
-BaseEvent::BaseEvent(EventID eventID):eventID(eventID){}
+BaseEvent::BaseEvent():eventID(IdGenerator::getNewID()){}
 
-void BaseEvent::subscribe(BaseSubscriber * subscriber){
-	subscribers.insert(subscriber);
-}
 
 void BaseEvent::unsusbcribe(BaseSubscriber * subscriber){
 	subscriber->eventIDs.erase(eventID);
@@ -29,9 +27,12 @@ BaseEvent * EventSystem::getEvent(const std::string & eventName) const {
 
 
 EventID EventSystem::registerEvent(BaseEvent * event, const std::string eventName) {
+	//TODO: improve this please
 	events[event->eventID] = event;
 	if (eventNames.find(eventName)==eventNames.end()){
 		eventNames[eventName]=event;
+	} else {
+		//throw :D
 	}
 	return EventID();
 }

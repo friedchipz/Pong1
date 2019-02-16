@@ -1,0 +1,33 @@
+Fast execution approach
+
+EventSystem
+	map<int, BaseEvent *> events
+	newEvent<T...>	the one and only way to instantiate events :D
+	getEvent<T...>	return the templated event pointer for an eventID or name
+	unregisterevent	removes map entries for event
+
+BaseEvent	
+	eventID
+	unsubscribe
+
+Event<T>
+	subscribe(subscriber<T> s)
+	operator()(T) or notify(T)
+
+Event<T> lifecycle:
+	EventSystem is asked to instantiate a new event<t>
+		Event is registered in EventSystem
+	Subscribers are subscribed/unsubscribed to the Event
+	Notify Subscribers about things :D
+	Event is deleted (probably by the owner object in destruction time)
+		Tell the subscribers the event is dead
+		Unregister from ES
+		finallly die.
+
+
+
+Engine lifecycle:
+Load modules (ECS, ES, whatever)
+do things
+Unload modules
+	ES destroy all remaining events (it has only BaseEvent * so dtor must be virtual. and it will be ok (for once) to have a protected + virtual dtor)

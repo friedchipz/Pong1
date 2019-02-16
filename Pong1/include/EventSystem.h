@@ -33,10 +33,9 @@ class BaseEvent {
 protected:
 	std::set<BaseSubscriber *> subscribers;
 	EventID eventID;
-	BaseEvent(EventID eventID);
-	~BaseEvent();
+	BaseEvent();
+	virtual ~BaseEvent();
 public:
-	virtual void subscribe(BaseSubscriber * subscriber);
 	void unsusbcribe(BaseSubscriber * subscriber);
 };
 
@@ -66,11 +65,11 @@ template <typename ... Args>
 class Event: public BaseEvent {
 	friend class EventSystem;
 public:
-	//virtual void subscribe(Subscriber<Args...> * subscriber);
+	void subscribe(Subscriber<Args...> * subscriber);
 	virtual ~Event() = default;
 	virtual void operator()(Args...);
 protected:
-	Event(EventID eventID);
+	Event()=default;
 }; 
 
 /*
@@ -94,12 +93,10 @@ public:
 	Event<Args...> * getEvent(const std::string eventName) const;
     EventSystem();
 protected:
-	void unregisterEvent(BaseEvent * event);
+	void unregisterEvent(BaseEvent * event); //TODO: i think it should be by ID or name
 	BaseEvent * getEvent(const EventID eventID) const;
 	BaseEvent * getEvent(const std::string & eventName) const;
 private:
-	
-	inline EventID getNewID();
 	EventID registerEvent(BaseEvent * event, const std::string eventName = nullptr);
 	
 };
@@ -138,14 +135,16 @@ Subscriber<Args...>::~Subscriber(){
 */
 
 template <typename ... Args>
-Event<Args...>::Event(EventID eventID):BaseEvent(eventID){};
-
-template <typename ... Args>
 void Event<Args...>::operator()(Args... mArgs){
 	for (auto subscriber : subscribers){
 		auto s = dynamic_cast<Subscriber<Args...>*>(subscriber);
 		if(s!=nullptr) (*s)(std::forward<Args>(mArgs)...);
 	}
+}
+
+template <typename ... Args>
+void Event<Args...>::subscribe(Subscriber<Args...> * subscriber ){
+	subscribers.insert(subscriber);
 }
 
 /*
@@ -155,7 +154,8 @@ void Event<Args...>::operator()(Args... mArgs){
 
 template <typename ... Args>
 Event<Args...> * EventSystem::newEvent(const std::string eventName){
-	Event<Args...> * event = new Event<Args...>(getNewID());
+	//TODO: check for eventName in events map. if it is there, throw
+	Event<Args...> * event = new Event<Args...>();
 	registerEvent(event, eventName);
 	return event;
 }
@@ -168,9 +168,4 @@ Event <Args...> * EventSystem::getEvent(const EventID eventID) const{
 template <typename ... Args>
 Event<Args...> * EventSystem::getEvent(const std::string eventName) const{
 	return dynamic_cast<Event<Args...>*>(getEvent(eventName));
-}
-
-inline EventID EventSystem::getNewID() {
-		static EventID lastID = 1;
-		return lastID++;
 }
