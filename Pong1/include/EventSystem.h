@@ -23,7 +23,6 @@ protected:
 
 /*
  Base class for events
-
  */
 
 class BaseEvent {
