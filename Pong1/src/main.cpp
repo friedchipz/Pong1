@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "game.h"
-int main2() {
+int main(int argc, char ** argv) {
 	try {
 		Game * game = new Game();
 		game->gameLoop();
@@ -21,7 +21,7 @@ class A{
 	int i;
 	A(float x, int i):x(x), i(i){}
 };
-int main(int argc, char ** argv){
+int main2(int argc, char ** argv){
 	auto myEvent = Singleton<EventSystem>::getInstance()->newEvent<A *>();
 	auto mySubs = new Subscriber<A*>();
 	auto mySubs2 = new Subscriber<A*>();
@@ -34,4 +34,5 @@ int main(int argc, char ** argv){
 	delete mySubs;
 	delete myEvent;
 	delete mySubs2;
+	return 0;
 }
