@@ -4,7 +4,6 @@
 
 BaseEvent::BaseEvent():eventID(IdGenerator::getNewID()){}
 
-
 void BaseEvent::unsusbcribe(BaseSubscriber * subscriber){
 	subscriber->eventIDs.erase(eventID);
 	subscribers.erase(subscriber);
@@ -24,8 +23,6 @@ BaseEvent * EventSystem::getEvent(const std::string & eventName) const {
 	return eventNames.find(eventName)->second;
 }
 
-
-
 EventID EventSystem::registerEvent(BaseEvent * event, const std::string eventName) {
 	//TODO: improve this please
 	events[event->eventID] = event;
@@ -42,14 +39,12 @@ EventSystem::EventSystem() {
 }
 
 void EventSystem::unregisterEvent(BaseEvent *  event){
-	//for (std::map<EventID, BaseEvent *>::iterator iter = events.begin(); iter != events.end();iter++) {
 	for (auto iter = events.begin(); iter != events.end(); iter++) {
 		if (iter->second == event) {
 			events.erase(iter);
 			break;
 		}
 	}
-	//for (std::map<std::string, BaseEvent *>::iterator iter = eventNames.begin(); iter != eventNames.end();iter++) {
 	for (auto iter = eventNames.begin(); iter != eventNames.end(); iter++) {
 		if (iter->second == event) {
 			eventNames.erase(iter);

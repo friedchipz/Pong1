@@ -9,8 +9,6 @@
 using EventID = std::size_t;
 /*
  Base class for subscribers
- i am here
- 
  */
 
 class BaseSubscriber{
