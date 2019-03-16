@@ -7,7 +7,7 @@ MovementComponent::MovementComponent(float maxSpeed){
 }
 
 void MovementComponent::update(){
-	if (accelerationFactor.length() > 1); accelerationFactor = accelerationFactor.normalize();
+	if (accelerationFactor.length() > 1) accelerationFactor = accelerationFactor.normalize();
 	speed = speed + accelerationFactor * maxSpeed;
 	if (speed.length() > maxSpeed) speed = speed.normalize()*maxSpeed;
 	entity->getComponent<TransformComponent>().pos = entity->getComponent<TransformComponent>().pos + speed;

@@ -4,17 +4,19 @@
 #include <SDL.h>
 #include "ECS.h"
 #include "Maths.h"
+#include "EventSystem.h"
 class ColliderComponent : public Component {
 protected:
-	std::set<std::function<void(Entity *)>> callBacks;
+	Event<Entity *> * eventCollision;
+	Subscriber<Entity *> * onCollision;
 public:
 	SDL_Rect area;
 	ColliderComponent(SDL_Rect area);
 	ColliderComponent(Vector2d pos, Vector2d size);
-	~ColliderComponent() = default;
-	SDL_Rect getTransformedArea();
-	void addBinding(std::function<void(Entity *)> callback);
-	void delBinding(std::function<void(Entity *)> callback);
+	~ColliderComponent();
+	SDL_Rect getTransformedArea() const;
+	Event<Entity *> * getEventCollision() const;
+	Subscriber<Entity *> * getSubscriberOnCollision() const;
 	bool checkCollission(ColliderComponent & checked);
 	void collide(Entity * triggerer);
 	static bool fromAbove(SDL_Rect ref, SDL_Rect body);

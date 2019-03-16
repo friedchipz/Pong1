@@ -1,6 +1,7 @@
 #include <iostream>
+
 #include "game.h"
-int main(int argc, char * argv[]) {
+int main(int argc, char ** argv) {
 	try {
 		Game * game = new Game();
 		game->gameLoop();

@@ -7,8 +7,6 @@
 	#define MAXCOMPONENTS 32
 #endif
 
-
-
 class Component;
 class Entity;
 
@@ -28,9 +26,9 @@ class Component {
 public:
 	Entity * entity;
 public:
-	virtual void init() {};
-	virtual void update() {};
-	virtual void render(SDL_Renderer * renderer) {};
+	virtual void init();
+	virtual void update();
+	virtual void render(SDL_Renderer * renderer);
 	virtual ~Component() = default;
 };
 

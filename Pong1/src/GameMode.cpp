@@ -18,7 +18,7 @@ GameMode::GameMode() {
 	renderer = nullptr;
 }
 
-const bool GameMode::isFinished() const {
+bool GameMode::isFinished() const {
 	return finished;
 }
 
@@ -57,8 +57,8 @@ void GameMode::update() {
 			if (!(*iterE2)->hasComponent<ColliderComponent>()) continue;
 			if ((*iterE1) == (*iterE2)) continue;
 			if ((*iterE1)->getComponent<ColliderComponent>().checkCollission((*iterE2)->getComponent<ColliderComponent>())) {
-				(*iterE1)->getComponent<ColliderComponent>().collide((*iterE2));
-				(*iterE2)->getComponent<ColliderComponent>().collide((*iterE1));
+				(*(*iterE1)->getComponent<ColliderComponent>().getEventCollision())(*iterE2);
+				(*(*iterE2)->getComponent<ColliderComponent>().getEventCollision())(*iterE1);
 			}
 		}
 	}
@@ -81,9 +81,9 @@ void GameMode::handleEvent() {
 		finished = true;
 		return;
 	}
-	for (Entity * entity : entities) {
+	/*for (Entity * entity : entities) {
 		//entity->handleEvent(event);
-	}
+	}*/
 }
 
 void GameMode::clean() {

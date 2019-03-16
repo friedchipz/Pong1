@@ -21,6 +21,26 @@
             "intelliSenseMode": "clang-x64"
         },
         {
+            "name": "Mac-SDL 2.0.9",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/include/SDL2"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks",
+                "/usr/local/Cellar/sdl2/2.0.9/lib"
+            ],
+            "compilerPath": "g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        },
+        {
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
@@ -34,6 +54,23 @@
             ],
             "windowsSdkVersion": "10.0.17134.0",
             "compilerPath": "D:/cygwin64/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        },
+        {
+            "name": "Linux64",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/Pong1/include/**",
+                "/usr/include/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "/usr/bin/g++",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"

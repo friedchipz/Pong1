@@ -2,6 +2,7 @@
 #include "TransformComponent.h"
 #include "Maths.h"
 #include <math.h>
+
 PolarMovementComponent::PolarMovementComponent(float maxSpeed, float maxAngularSpeed, float speed, float angle, float angularSpeed) {
 	this->maxSpeed = maxSpeed;
 	this->maxAngularSpeed = maxAngularSpeed;

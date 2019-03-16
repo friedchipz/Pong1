@@ -21,3 +21,7 @@ void Entity::render(SDL_Renderer * renderer) {
 		if (component != nullptr) component->render(renderer);
 	}
 }
+
+void Component::render(SDL_Renderer * renderer) {}
+void Component::update(){}
+void Component::init(){};
